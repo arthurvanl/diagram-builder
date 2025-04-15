@@ -1,0 +1,48 @@
+name: Build
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - develop
+      - production
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        sdk:
+          - stable
+        flavor:
+          - release
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: 🟢 Use Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: 📝 Create bunfig.toml
+        run: >-
+          touch bunfig.toml
+
+          echo "[test]" >> bunfig.toml
+
+          echo "root = \"./src/tests\"" >> bunfig.toml
+
+          echo "[install]" >> bunfig.toml
+
+          echo "registry = { url = \"https://registry.npmjs.org\", token = \"${{
+          secrets.NPM_AUTH_TOKEN }}\" }" >> bunfig.toml
+      - name: 🗃️ Install dependencies
+        run: bun install
+      - name: 🧪 Tests
+        run: bun test
+      - name: ✅ Build script
+        run: bun run build

@@ -1,0 +1,29 @@
+{
+    "name": "diagram-builder",
+    "version": "0.0.1",
+    "description": "",
+    "module": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "bun src/index.ts",
+        "release": "bun publish --access restricted --auth-type=legacy"
+    },
+    "devDependencies": {
+        "prettier": "^3.3.3",
+        "globals": "^15.9.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint": "^9.11.1",
+        "bun-types": "^1.1.34",
+        "@typescript-eslint/parser": "^8.7.0",
+        "@typescript-eslint/eslint-plugin": "^8.7.0",
+        "@eslint/js": "^9.11.1",
+        "@eslint/eslintrc": "^3.1.0"
+    },
+    "peerDependencies": {
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "zod": "4.0.0-beta.20250412T085909"
+    }
+}
